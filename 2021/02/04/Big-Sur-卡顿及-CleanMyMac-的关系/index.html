@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://example.com/img/Big-Sur-%E5%8D%A1%E9%A1%BF%E5%8F%8A-CleanMyMac-%E7%9A%84%E5%85%B3%E7%B3%BB/20161104003854618.jpeg">
 <meta property="og:image" content="http://example.com/img/Big-Sur-%E5%8D%A1%E9%A1%BF%E5%8F%8A-CleanMyMac-%E7%9A%84%E5%85%B3%E7%B3%BB/%E6%88%AA%E5%B1%8F2021-02-04%20%E4%B8%8B%E5%8D%881.11.15.png">
 <meta property="article:published_time" content="2021-02-04T04:52:53.000Z">
-<meta property="article:modified_time" content="2021-02-04T05:12:52.553Z">
+<meta property="article:modified_time" content="2021-02-07T11:21:45.160Z">
 <meta property="article:author" content="Jeffrey Hu">
 <meta property="article:tag" content="日常问题">
 <meta property="article:tag" content="Mac">
@@ -205,7 +205,7 @@
 <p>当我们把CleanMyMac拖到垃圾桶或者command+delete后,它还是会在我们开机或者清内存的时候莫名弹框,有木有觉得很恶心,其实是我们简单删除CleanMyMac的时候并没有彻底删干净.这时候就要用到我们万能的命令行了.</p>
 <ol>
 <li>执行mdfind -name CleanMyMac <img src="/../../img/Big-Sur-%E5%8D%A1%E9%A1%BF%E5%8F%8A-CleanMyMac-%E7%9A%84%E5%85%B3%E7%B3%BB/20161104003854618.jpeg" alt="这里写图片描述"></li>
-<li>删除文件<br>对于上面的文件一个个的删就ok了. </li>
+<li>删除文件<br> 对于上面的文件一个个的删就ok了. </li>
 </ol>
 <blockquote>
 <p>打开指定目录快捷键: open 文件名</p>
@@ -218,6 +218,21 @@
 <ul>
 <li>这样重启以后，我的电脑重新让我感觉到了以前顺畅的感觉。</li>
 <li>总结：远离 CleanMyMac！！！</li>
+</ul>
+<p>p.s. 2.7 后续</p>
+<ul>
+<li>卸载软件后，虽然显存CPU 不会爆，但是 UI 依旧很卡，打字很难受。</li>
+<li>使用 EasyRes 调整了分辨率和刷新率，从高到低都试过，没用。</li>
+<li>将显示器乱七八糟的注入什么 XXXResolution 等功能关闭后，稍微好一点，但是打字依然卡顿</li>
+</ul>
+<blockquote>
+<h1 id="MBP-外接显示器掉帧严重，原因居然是-HDCP"><a href="#MBP-外接显示器掉帧严重，原因居然是-HDCP" class="headerlink" title="MBP 外接显示器掉帧严重，原因居然是 HDCP"></a>MBP 外接显示器掉帧严重，原因居然是 HDCP</h1><p><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/460414">https://www.v2ex.com/t/460414</a></p>
+</blockquote>
+<ul>
+<li>关闭外接显示屏后依然卡顿明显；关闭 PyCharm 后卡顿消失（内存CPU都没有爆过），难道是 Pycharm 版本和 Big Sur 的关系？(外接显示器，打开pycharm就卡，拔线依旧卡；但是如果一开始就在不连接外接显示器时打开此软件就不会卡)。结果升级以后并不是……</li>
+<li>目前看来，在20-30分钟后，这个毛病就会出现，只有断开链接再插上，才会恢复流畅。</li>
+<li>进一步发现，只要不播放网络视频就不会卡顿，做一些纯文字工作还是可以的。</li>
+<li>实在不行买一根雷电线了，原来的 LG 屏接 MAC 并不会卡顿，用的自带的 c 口线。新买的这个屏幕没有自带 c 口线，也许是线材的问题。</li>
 </ul>
 
       
@@ -356,6 +371,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2021/02/06/%E3%80%8APython-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E3%80%8B%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          《Python 数据结构与算法分析》笔记
+        
+      </div>
+    </a>
+  
   
     <a href="/2021/02/02/%E5%A6%82%E4%BD%95%E8%87%AA%E5%AD%A6-%E8%87%AA%E5%AD%A6%E7%9A%84%E9%99%B7%E9%98%B1/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">如何自学&amp;自学的陷阱</div>
@@ -484,11 +508,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">论文笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">论文笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,15 +532,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ROS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">游戏</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+                <a href="javascript:void(0)" class="js-tag color4">ROS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,11 +552,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">树莓派</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -540,15 +572,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">求职</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">求职</a>
               </li>
             
             <div class="clearfix"></div>

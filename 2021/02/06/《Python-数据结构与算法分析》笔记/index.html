@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://example.com/img/%E3%80%8APython-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E3%80%8B%E7%AC%94%E8%AE%B0/%E6%88%AA%E5%B1%8F2021-02-08%20%E4%B8%8B%E5%8D%888.48.32.png">
 <meta property="og:image" content="http://example.com/img/%E3%80%8APython-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E3%80%8B%E7%AC%94%E8%AE%B0/QQ20210208-211546-HD.gif">
 <meta property="article:published_time" content="2021-02-06T05:24:29.000Z">
-<meta property="article:modified_time" content="2021-02-08T13:35:24.643Z">
+<meta property="article:modified_time" content="2021-02-08T13:45:43.966Z">
 <meta property="article:author" content="Jeffrey Hu">
 <meta property="article:tag" content="读书笔记">
 <meta property="article:tag" content="数据结构">
@@ -211,6 +211,8 @@
 </li>
 <li><p>集 (set)是由零个或多个不可修改的 Python 数据对象组成的无序集合。集不允许重复元素,并且写成由花括号包含、以逗号分隔的一系列值。空集由 set() 来表示。集是异构的,并且可以通过下面的方法赋给变量。</p>
 </li>
+<li><p>假设有两个Fraction 对象,f1 和 f2 。只有在它们是同一个对象的引用时, f1 == f2 才为 True 。这被称为<strong>浅相等</strong>。<strong>深相等</strong> ——根据值来判断相等。</p>
+</li>
 <li><p>Python 字典提供的方法</p>
 </li>
 </ul>
@@ -246,6 +248,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">lst1 = [<span class="number">0</span>] * <span class="number">26</span></span><br><span class="line">lst2 = [<span class="number">0</span>] * <span class="number">26</span></span><br><span class="line">str1 = <span class="string">&#x27;earth&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> str1:</span><br><span class="line">    <span class="comment"># 计算出字母相对位置</span></span><br><span class="line">    idx = <span class="built_in">ord</span>(c) - <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">    <span class="comment"># 找出此时在列表中的绝对位置，使 count 指向此处s</span></span><br><span class="line">    count = lst1[idx]</span><br><span class="line">    <span class="comment"># count 的值增加 1</span></span><br><span class="line">    count += <span class="number">1</span></span><br><span class="line">    <span class="comment"># 把此时列表中对应位置的出现次数更新</span></span><br><span class="line">    lst1[idx] = count</span><br><span class="line"></span><br><span class="line">str2 = <span class="string">&#x27;heart&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> str2:</span><br><span class="line">    <span class="comment"># 计算出字母相对位置</span></span><br><span class="line">    idx = <span class="built_in">ord</span>(c) - <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">    <span class="comment"># 找出此时在列表中的绝对位置，使 count 指向此处s</span></span><br><span class="line">    count = lst2[idx]</span><br><span class="line">    <span class="comment"># count 的值增加 1</span></span><br><span class="line">    count += <span class="number">1</span></span><br><span class="line">    <span class="comment"># 把此时列表中对应位置的出现次数更新</span></span><br><span class="line">    lst2[idx] = count</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接判断 lst1 == lst2 也可以</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(lst1)):</span><br><span class="line">    <span class="keyword">if</span> lst1[i] != lst2[i]:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> i == <span class="built_in">len</span>(lst1) - <span class="number">1</span>:</span><br><span class="line">     print(<span class="string">&#x27;True&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">&#x27;False&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <ul>
 <li>该算法执行时间是线性的,它还是要用额外的空间来存储计数器。也就是说, 这个算法用空间换来了时间。</li>
+<li>单词统计字符次数可以考虑用字典。</li>
 </ul>
 
       
@@ -543,19 +546,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">论文笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">黑苹果</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ROS</a>
+                <a href="javascript:void(0)" class="js-tag color5">论文笔记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">游戏</a>
+                <a href="javascript:void(0)" class="js-tag color4">ROS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,19 +566,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">游戏</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Typora</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,11 +586,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">求职</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
             
             <div class="clearfix"></div>

@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>20210301突然连接不上 GitHub | Jeffrey 一隅</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="菜鸟程序猿">
+  <meta name="description" content="使用 hexo 上传博客突然报错">
 <meta property="og:type" content="article">
 <meta property="og:title" content="20210301突然连接不上 GitHub">
 <meta property="og:url" content="http://example.com/2021/03/01/20210301%E7%AA%81%E7%84%B6%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A-GitHub/index.html">
 <meta property="og:site_name" content="Jeffrey 一隅">
-<meta property="og:description" content="菜鸟程序猿">
+<meta property="og:description" content="使用 hexo 上传博客突然报错">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-03-01T00:50:42.000Z">
-<meta property="article:modified_time" content="2021-03-01T00:50:42.788Z">
+<meta property="article:modified_time" content="2021-03-01T01:00:04.689Z">
 <meta property="article:author" content="Jeffrey Hu">
-<meta property="article:tag" content="Python,Deep Learning,Java">
+<meta property="article:tag" content="日常问题">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeffrey 一隅" type="application/atom+xml">
@@ -175,7 +175,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <ul>
+<li>使用 hexo 上传博客突然报错<a id="more"></a></li>
+<li>（最终原因：本地网络波动）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fatal: unable to access <span class="string">&#x27;https://github.com/xxxx/xxxx.github.io.git/&#x27;</span>: LibreSSL SSL_connect: SSL_ERROR_SYSCALL <span class="keyword">in</span> connection to github.com:443 </span><br><span class="line">FATAL &#123;</span><br><span class="line">  err: Error: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (/Users/xxx/hxblogs/node_modules/hexo-deployer-git/node_modules/hexo-util/lib/spawn.js:51:21)</span><br><span class="line">      at ChildProcess.emit (events.js:315:20)</span><br><span class="line">      at Process.ChildProcess._handle.onexit (internal/child_process.js:277:12) &#123;</span><br><span class="line">    code: 128</span><br><span class="line">  &#125;</span><br><span class="line">&#125; Something<span class="string">&#x27;s wrong. Maybe you can find the solution here: %s https://hexo.io/docs/troubleshooting.html</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>先按照网上修改了 HOSTS（失败）</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/fanxin0913/blog/4965468">https://my.oschina.net/fanxin0913/blog/4965468</a></p>
+</blockquote>
+<ul>
+<li>在 private/etc 中找到  hosts 添加 IP， xx.xx.xx github.com</li>
+<li>DNS 可以在 <code>http://tool.chinaz.com/dns?type=1&amp;host=www.github.com&amp;ip=</code>查找</li>
+<li>可以上了，但是过一会又不行了，排查后，发现就算删除 host 中添加的内容也是时上时不上，原来是网络波动啊！</li>
+<li>之后 git 可能不能用密码直接传了：</li>
+</ul>
+<blockquote>
+<p>You recently used a password to access the repository at xxxx with git using git/2.23.0.</p>
+<p>Basic authentication using a password to Git is deprecated and will soon no longer work. Visit <a target="_blank" rel="noopener" href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/</a> for more information around suggested workarounds and removal dates.</p>
+</blockquote>
+
       
 
       
@@ -214,7 +235,33 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常问题</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/日常问题//" class="article-tag-list-link color5">日常问题</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/日常问题/Git//" class="article-tag-list-link color4">Git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -429,11 +476,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">日常问题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常问题</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -449,11 +496,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">黑苹果</a>
+                <a href="javascript:void(0)" class="js-tag color3">游戏</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">游戏</a>
+                <a href="javascript:void(0)" class="js-tag color4">黑苹果</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -473,19 +520,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Typora</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">树莓派</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+                <a href="javascript:void(0)" class="js-tag color2">Typora</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">

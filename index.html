@@ -175,90 +175,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SRC-漏洞点汇总"><a href="#SRC-漏洞点汇总" class="headerlink" title="SRC 漏洞点汇总"></a>SRC 漏洞点汇总</h1><p>[toc]</p>
-<h2 id="spf-邮件伪造："><a href="#spf-邮件伪造：" class="headerlink" title="spf 邮件伪造："></a>spf 邮件伪造：</h2><p><code>dig -t txt baidu.com</code></p>
-<ul>
-<li>返回 ～all 就是存在</li>
-</ul>
-<h2 id="sourcemap-文件泄露"><a href="#sourcemap-文件泄露" class="headerlink" title="sourcemap 文件泄露"></a>sourcemap 文件泄露</h2><ul>
-<li>油猴插件 sourcemap - searcher</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 终端输入</span><br><span class="line">npm i sourcemap-searcher -g</span><br><span class="line">sms https://www.bilibili.com</span><br><span class="line"># 或者下载油猴插件，在开发者工具的终端输入</span><br><span class="line">sms（）</span><br></pre></td></tr></table></figure>
-<h2 id="jsonpxss"><a href="#jsonpxss" class="headerlink" title="jsonpxss"></a>jsonpxss</h2><ul>
-<li>burp 插件 jsonhunter</li>
-<li>当jsonphunter 抓到包，将包中的callback参数改为xss语句即可</li>
-<li>条件1: 返回 content - type 为 text/html</li>
-<li>条件2: get 或 post 中的 callback 参数可控</li>
-</ul>
-<h2 id="AI-漏洞"><a href="#AI-漏洞" class="headerlink" title="AI 漏洞"></a>AI 漏洞</h2><ul>
-<li>国内 app 调用国外 借口，随意添加提示词可以出现违规结果</li>
-</ul>
-<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><ul>
-<li>万物皆可并发，关注、点赞，有限制的地方都可以</li>
-<li>抓包后右键发送到turbo intruder，选择race-single-packet-attack 脚本，BURP2 删除2，range 合适的次数，点击attack</li>
-</ul>
-<h2 id="URL-跳转"><a href="#URL-跳转" class="headerlink" title="URL 跳转"></a>URL 跳转</h2><ul>
-<li>在?xx=xx.com 修改参数，返沪包中 location 字段改成了你修改的 url</li>
-<li>可以在测试完毕后，统一在 burp 的history 处，修改 proxy settings 的状态码，保留 30x 的统一测试。</li>
-</ul>
-<h2 id="短信轰炸"><a href="#短信轰炸" class="headerlink" title="短信轰炸"></a>短信轰炸</h2><ul>
-<li>turbo intruder 15 +</li>
-</ul>
-<h2 id="dns-域传送"><a href="#dns-域传送" class="headerlink" title="dns 域传送"></a>dns 域传送</h2><ul>
-<li><code>dig ns xxx.com</code></li>
-<li><code>dig axf@(dns服务器)域名</code></li>
-</ul>
-<h2 id="备份文件泄露"><a href="#备份文件泄露" class="headerlink" title="备份文件泄露"></a>备份文件泄露</h2><ul>
-<li>dirsearch</li>
-<li>swagger/ proof/ druid/ 日志</li>
-</ul>
-<h2 id="登录口"><a href="#登录口" class="headerlink" title="登录口"></a>登录口</h2><ul>
-<li>图片验证码爆破</li>
-<li>图片验证码在返回包中</li>
-<li>图片验证码可删除</li>
-<li>无限复用</li>
-<li>拒绝服务</li>
-<li>用户名枚举</li>
-<li>任意用户<ul>
-<li>注册</li>
-<li>登录</li>
-<li>重置</li>
-<li>注销</li>
-</ul>
-</li>
-</ul>
-<h2 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h2><ul>
-<li>能注册，或找到有特权的账号后</li>
-<li>找特征：cookie;authorization;token; x-api-key;api-key;x-auth-token;x-session-id</li>
-<li>删除找到真正的鉴权字段，然后判断</li>
-</ul>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ul>
-<li>在有鉴权的地方，增删等操作，生产 poc 测试</li>
-</ul>
-<h2 id="瞎注、瞎越、瞎料"><a href="#瞎注、瞎越、瞎料" class="headerlink" title="瞎注、瞎越、瞎料"></a>瞎注、瞎越、瞎料</h2><ul>
-<li>瞎注：自动打双引号测sql</li>
-<li>瞎越：辅助测试越权</li>
-<li>瞎料：虚假注册信息 + 弱口令</li>
-</ul>
-<h2 id="任意文件上传"><a href="#任意文件上传" class="headerlink" title="任意文件上传"></a>任意文件上传</h2><ul>
-<li>抓包后缀绕过</li>
-<li>pdf xss</li>
-<li>svg xss</li>
-<li>html xss</li>
-<li>xml xss</li>
-</ul>
-<h2 id="越权-1"><a href="#越权-1" class="headerlink" title="越权"></a>越权</h2><ul>
-<li>平行越权</li>
-<li>垂直越权</li>
-<li>套娃越权</li>
-</ul>
-<h2 id="支付漏洞"><a href="#支付漏洞" class="headerlink" title="支付漏洞"></a>支付漏洞</h2><ul>
-<li>0元购</li>
-<li>并发领取多张优惠券</li>
-<li>修改金额为0.1购买</li>
-<li>不发货但发积分</li>
-</ul>
-
+        <h1 id="SRC-漏洞点汇总"><a href="#SRC-漏洞点汇总" class="headerlink" title="SRC 漏洞点汇总"></a>SRC 漏洞点汇总</h1>
+        
+          <a class="article-more-a" href="/2024/05/30/2024/SRC%20%E6%BC%8F%E6%B4%9E%E7%82%B9%E6%B1%87%E6%80%BB/#more">more >></a>
+        
       
 
       
@@ -271,7 +191,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SRC</a>
         		</li>
       		
 		</ul>
@@ -1149,6 +1069,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SRC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
@@ -1249,15 +1173,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">求职</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">求职</a>
               </li>
              
               <li class="article-tag-list-item">

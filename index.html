@@ -16,7 +16,7 @@
 <meta property="og:description" content="菜鸟程序猿">
 <meta property="og:locale">
 <meta property="article:author" content="Jeffrey Hu">
-<meta property="article:tag" content="Python,Deep Learning,Java">
+<meta property="article:tag" content="Cyber Security,Python,Deep Learning,Java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jeffrey 一隅" type="application/atom+xml">
@@ -155,19 +155,186 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-红队笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2024/SRC 漏洞点汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/03/31/%E7%BA%A2%E9%98%9F%E7%AC%94%E8%AE%B0/">红队笔记</a>
+      <a class="article-title" href="/2024/05/30/2024/SRC%20%E6%BC%8F%E6%B4%9E%E7%82%B9%E6%B1%87%E6%80%BB/">SRC 漏洞点汇总</a>
     </h1>
   
 
         
-        <a href="/2023/03/31/%E7%BA%A2%E9%98%9F%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+        <a href="/2024/05/30/2024/SRC%20%E6%BC%8F%E6%B4%9E%E7%82%B9%E6%B1%87%E6%80%BB/" class="archive-article-date">
+  	<time datetime="2024-05-30T13:53:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SRC-漏洞点汇总"><a href="#SRC-漏洞点汇总" class="headerlink" title="SRC 漏洞点汇总"></a>SRC 漏洞点汇总</h1><p>[toc]</p>
+<h2 id="spf-邮件伪造："><a href="#spf-邮件伪造：" class="headerlink" title="spf 邮件伪造："></a>spf 邮件伪造：</h2><p><code>dig -t txt baidu.com</code></p>
+<ul>
+<li>返回 ～all 就是存在</li>
+</ul>
+<h2 id="sourcemap-文件泄露"><a href="#sourcemap-文件泄露" class="headerlink" title="sourcemap 文件泄露"></a>sourcemap 文件泄露</h2><ul>
+<li>油猴插件 sourcemap - searcher</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 终端输入</span><br><span class="line">npm i sourcemap-searcher -g</span><br><span class="line">sms https://www.bilibili.com</span><br><span class="line"># 或者下载油猴插件，在开发者工具的终端输入</span><br><span class="line">sms（）</span><br></pre></td></tr></table></figure>
+<h2 id="jsonpxss"><a href="#jsonpxss" class="headerlink" title="jsonpxss"></a>jsonpxss</h2><ul>
+<li>burp 插件 jsonhunter</li>
+<li>当jsonphunter 抓到包，将包中的callback参数改为xss语句即可</li>
+<li>条件1: 返回 content - type 为 text/html</li>
+<li>条件2: get 或 post 中的 callback 参数可控</li>
+</ul>
+<h2 id="AI-漏洞"><a href="#AI-漏洞" class="headerlink" title="AI 漏洞"></a>AI 漏洞</h2><ul>
+<li>国内 app 调用国外 借口，随意添加提示词可以出现违规结果</li>
+</ul>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><ul>
+<li>万物皆可并发，关注、点赞，有限制的地方都可以</li>
+<li>抓包后右键发送到turbo intruder，选择race-single-packet-attack 脚本，BURP2 删除2，range 合适的次数，点击attack</li>
+</ul>
+<h2 id="URL-跳转"><a href="#URL-跳转" class="headerlink" title="URL 跳转"></a>URL 跳转</h2><ul>
+<li>在?xx=xx.com 修改参数，返沪包中 location 字段改成了你修改的 url</li>
+<li>可以在测试完毕后，统一在 burp 的history 处，修改 proxy settings 的状态码，保留 30x 的统一测试。</li>
+</ul>
+<h2 id="短信轰炸"><a href="#短信轰炸" class="headerlink" title="短信轰炸"></a>短信轰炸</h2><ul>
+<li>turbo intruder 15 +</li>
+</ul>
+<h2 id="dns-域传送"><a href="#dns-域传送" class="headerlink" title="dns 域传送"></a>dns 域传送</h2><ul>
+<li><code>dig ns xxx.com</code></li>
+<li><code>dig axf@(dns服务器)域名</code></li>
+</ul>
+<h2 id="备份文件泄露"><a href="#备份文件泄露" class="headerlink" title="备份文件泄露"></a>备份文件泄露</h2><ul>
+<li>dirsearch</li>
+<li>swagger/ proof/ druid/ 日志</li>
+</ul>
+<h2 id="登录口"><a href="#登录口" class="headerlink" title="登录口"></a>登录口</h2><ul>
+<li>图片验证码爆破</li>
+<li>图片验证码在返回包中</li>
+<li>图片验证码可删除</li>
+<li>无限复用</li>
+<li>拒绝服务</li>
+<li>用户名枚举</li>
+<li>任意用户<ul>
+<li>注册</li>
+<li>登录</li>
+<li>重置</li>
+<li>注销</li>
+</ul>
+</li>
+</ul>
+<h2 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h2><ul>
+<li>能注册，或找到有特权的账号后</li>
+<li>找特征：cookie;authorization;token; x-api-key;api-key;x-auth-token;x-session-id</li>
+<li>删除找到真正的鉴权字段，然后判断</li>
+</ul>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ul>
+<li>在有鉴权的地方，增删等操作，生产 poc 测试</li>
+</ul>
+<h2 id="瞎注、瞎越、瞎料"><a href="#瞎注、瞎越、瞎料" class="headerlink" title="瞎注、瞎越、瞎料"></a>瞎注、瞎越、瞎料</h2><ul>
+<li>瞎注：自动打双引号测sql</li>
+<li>瞎越：辅助测试越权</li>
+<li>瞎料：虚假注册信息 + 弱口令</li>
+</ul>
+<h2 id="任意文件上传"><a href="#任意文件上传" class="headerlink" title="任意文件上传"></a>任意文件上传</h2><ul>
+<li>抓包后缀绕过</li>
+<li>pdf xss</li>
+<li>svg xss</li>
+<li>html xss</li>
+<li>xml xss</li>
+</ul>
+<h2 id="越权-1"><a href="#越权-1" class="headerlink" title="越权"></a>越权</h2><ul>
+<li>平行越权</li>
+<li>垂直越权</li>
+<li>套娃越权</li>
+</ul>
+<h2 id="支付漏洞"><a href="#支付漏洞" class="headerlink" title="支付漏洞"></a>支付漏洞</h2><ul>
+<li>0元购</li>
+<li>并发领取多张优惠券</li>
+<li>修改金额为0.1购买</li>
+<li>不发货但发积分</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/网络安全//" class="article-tag-list-link color5">网络安全</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/05/30/2024/SRC%20%E6%BC%8F%E6%B4%9E%E7%82%B9%E6%B1%87%E6%80%BB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2021-2023/红队笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/03/31/2021-2023/%E7%BA%A2%E9%98%9F%E7%AC%94%E8%AE%B0/">红队笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2023/03/31/2021-2023/%E7%BA%A2%E9%98%9F%E7%AC%94%E8%AE%B0/" class="archive-article-date">
   	<time datetime="2023-03-31T02:13:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-31</time>
 </a>
         
@@ -177,7 +344,7 @@
       
         <h1 id="红队笔记"><a href="#红队笔记" class="headerlink" title="红队笔记"></a>红队笔记</h1>
         
-          <a class="article-more-a" href="/2023/03/31/%E7%BA%A2%E9%98%9F%E7%AC%94%E8%AE%B0/#more">more >></a>
+          <a class="article-more-a" href="/2023/03/31/2021-2023/%E7%BA%A2%E9%98%9F%E7%AC%94%E8%AE%B0/#more">more >></a>
         
       
 
@@ -201,7 +368,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/03/31/%E7%BA%A2%E9%98%9F%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/03/31/2021-2023/%E7%BA%A2%E9%98%9F%E7%AC%94%E8%AE%B0/">展开全文 >></a>
         </p>
       
 
@@ -231,19 +398,19 @@
 
 
   
-    <article id="post-安全体系化课程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2021-2023/安全体系化课程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/16/%E5%AE%89%E5%85%A8%E4%BD%93%E7%B3%BB%E5%8C%96%E8%AF%BE%E7%A8%8B/">安全体系化课程</a>
+      <a class="article-title" href="/2022/03/16/2021-2023/%E5%AE%89%E5%85%A8%E4%BD%93%E7%B3%BB%E5%8C%96%E8%AF%BE%E7%A8%8B/">安全体系化课程</a>
     </h1>
   
 
         
-        <a href="/2022/03/16/%E5%AE%89%E5%85%A8%E4%BD%93%E7%B3%BB%E5%8C%96%E8%AF%BE%E7%A8%8B/" class="archive-article-date">
+        <a href="/2022/03/16/2021-2023/%E5%AE%89%E5%85%A8%E4%BD%93%E7%B3%BB%E5%8C%96%E8%AF%BE%E7%A8%8B/" class="archive-article-date">
   	<time datetime="2022-03-16T01:13:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-16</time>
 </a>
         
@@ -254,7 +421,7 @@
         <p>[toc]</p>
 <h1 id="安全体系化课程"><a href="#安全体系化课程" class="headerlink" title="安全体系化课程 "></a>安全体系化课程
         
-          <a class="article-more-a" href="/2022/03/16/%E5%AE%89%E5%85%A8%E4%BD%93%E7%B3%BB%E5%8C%96%E8%AF%BE%E7%A8%8B/#more">more >></a>
+          <a class="article-more-a" href="/2022/03/16/2021-2023/%E5%AE%89%E5%85%A8%E4%BD%93%E7%B3%BB%E5%8C%96%E8%AF%BE%E7%A8%8B/#more">more >></a>
         
       
 
@@ -278,7 +445,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/16/%E5%AE%89%E5%85%A8%E4%BD%93%E7%B3%BB%E5%8C%96%E8%AF%BE%E7%A8%8B/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/03/16/2021-2023/%E5%AE%89%E5%85%A8%E4%BD%93%E7%B3%BB%E5%8C%96%E8%AF%BE%E7%A8%8B/">展开全文 >></a>
         </p>
       
 
@@ -308,19 +475,19 @@
 
 
   
-    <article id="post-CISP - PTE 天融信培训" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2021-2023/CISP - PTE 天融信培训" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/03/CISP%20-%20PTE%20%E5%A4%A9%E8%9E%8D%E4%BF%A1%E5%9F%B9%E8%AE%AD/">CISP - PTE 天融信培训</a>
+      <a class="article-title" href="/2022/03/03/2021-2023/CISP%20-%20PTE%20%E5%A4%A9%E8%9E%8D%E4%BF%A1%E5%9F%B9%E8%AE%AD/">CISP - PTE 天融信培训</a>
     </h1>
   
 
         
-        <a href="/2022/03/03/CISP%20-%20PTE%20%E5%A4%A9%E8%9E%8D%E4%BF%A1%E5%9F%B9%E8%AE%AD/" class="archive-article-date">
+        <a href="/2022/03/03/2021-2023/CISP%20-%20PTE%20%E5%A4%A9%E8%9E%8D%E4%BF%A1%E5%9F%B9%E8%AE%AD/" class="archive-article-date">
   	<time datetime="2022-03-03T02:13:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-03</time>
 </a>
         
@@ -330,7 +497,7 @@
       
         <h1 id="CISP-PTE-天融信培训"><a href="#CISP-PTE-天融信培训" class="headerlink" title="CISP - PTE 天融信培训"></a>CISP - PTE 天融信培训
         
-          <a class="article-more-a" href="/2022/03/03/CISP%20-%20PTE%20%E5%A4%A9%E8%9E%8D%E4%BF%A1%E5%9F%B9%E8%AE%AD/#more">more >></a>
+          <a class="article-more-a" href="/2022/03/03/2021-2023/CISP%20-%20PTE%20%E5%A4%A9%E8%9E%8D%E4%BF%A1%E5%9F%B9%E8%AE%AD/#more">more >></a>
         
       
 
@@ -354,7 +521,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/03/CISP%20-%20PTE%20%E5%A4%A9%E8%9E%8D%E4%BF%A1%E5%9F%B9%E8%AE%AD/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/03/03/2021-2023/CISP%20-%20PTE%20%E5%A4%A9%E8%9E%8D%E4%BF%A1%E5%9F%B9%E8%AE%AD/">展开全文 >></a>
         </p>
       
 
@@ -384,19 +551,19 @@
 
 
   
-    <article id="post-Git-简单配置流程实录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2021-2023/Git-简单配置流程实录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/31/Git-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%AE%9E%E5%BD%95/">Git 简单配置流程实录</a>
+      <a class="article-title" href="/2022/01/31/2021-2023/Git-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%AE%9E%E5%BD%95/">Git 简单配置流程实录</a>
     </h1>
   
 
         
-        <a href="/2022/01/31/Git-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%AE%9E%E5%BD%95/" class="archive-article-date">
+        <a href="/2022/01/31/2021-2023/Git-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%AE%9E%E5%BD%95/" class="archive-article-date">
   	<time datetime="2022-01-31T02:13:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-31</time>
 </a>
         
@@ -406,7 +573,7 @@
       
         <h2 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git
         
-          <a class="article-more-a" href="/2022/01/31/Git-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%AE%9E%E5%BD%95/#more">more >></a>
+          <a class="article-more-a" href="/2022/01/31/2021-2023/Git-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%AE%9E%E5%BD%95/#more">more >></a>
         
       
 
@@ -430,7 +597,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/31/Git-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%AE%9E%E5%BD%95/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/01/31/2021-2023/Git-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%AE%9E%E5%BD%95/">展开全文 >></a>
         </p>
       
 
@@ -460,19 +627,19 @@
 
 
   
-    <article id="post-节拍器与斯多葛主义的运用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2021-2023/节拍器与斯多葛主义的运用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/31/%E8%8A%82%E6%8B%8D%E5%99%A8%E4%B8%8E%E6%96%AF%E5%A4%9A%E8%91%9B%E4%B8%BB%E4%B9%89%E7%9A%84%E8%BF%90%E7%94%A8/">节拍器与斯多葛主义的运用</a>
+      <a class="article-title" href="/2022/01/31/2021-2023/%E8%8A%82%E6%8B%8D%E5%99%A8%E4%B8%8E%E6%96%AF%E5%A4%9A%E8%91%9B%E4%B8%BB%E4%B9%89%E7%9A%84%E8%BF%90%E7%94%A8/">节拍器与斯多葛主义的运用</a>
     </h1>
   
 
         
-        <a href="/2022/01/31/%E8%8A%82%E6%8B%8D%E5%99%A8%E4%B8%8E%E6%96%AF%E5%A4%9A%E8%91%9B%E4%B8%BB%E4%B9%89%E7%9A%84%E8%BF%90%E7%94%A8/" class="archive-article-date">
+        <a href="/2022/01/31/2021-2023/%E8%8A%82%E6%8B%8D%E5%99%A8%E4%B8%8E%E6%96%AF%E5%A4%9A%E8%91%9B%E4%B8%BB%E4%B9%89%E7%9A%84%E8%BF%90%E7%94%A8/" class="archive-article-date">
   	<time datetime="2022-01-31T02:11:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-31</time>
 </a>
         
@@ -482,7 +649,7 @@
       
         <h2 id="节拍器"><a href="#节拍器" class="headerlink" title="节拍器 "></a>节拍器
         
-          <a class="article-more-a" href="/2022/01/31/%E8%8A%82%E6%8B%8D%E5%99%A8%E4%B8%8E%E6%96%AF%E5%A4%9A%E8%91%9B%E4%B8%BB%E4%B9%89%E7%9A%84%E8%BF%90%E7%94%A8/#more">more >></a>
+          <a class="article-more-a" href="/2022/01/31/2021-2023/%E8%8A%82%E6%8B%8D%E5%99%A8%E4%B8%8E%E6%96%AF%E5%A4%9A%E8%91%9B%E4%B8%BB%E4%B9%89%E7%9A%84%E8%BF%90%E7%94%A8/#more">more >></a>
         
       
 
@@ -510,7 +677,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/31/%E8%8A%82%E6%8B%8D%E5%99%A8%E4%B8%8E%E6%96%AF%E5%A4%9A%E8%91%9B%E4%B8%BB%E4%B9%89%E7%9A%84%E8%BF%90%E7%94%A8/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/01/31/2021-2023/%E8%8A%82%E6%8B%8D%E5%99%A8%E4%B8%8E%E6%96%AF%E5%A4%9A%E8%91%9B%E4%B8%BB%E4%B9%89%E7%9A%84%E8%BF%90%E7%94%A8/">展开全文 >></a>
         </p>
       
 
@@ -540,19 +707,19 @@
 
 
   
-    <article id="post-打造个人知识库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2021-2023/打造个人知识库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/24/%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/">打造个人知识库</a>
+      <a class="article-title" href="/2022/01/24/2021-2023/%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/">打造个人知识库</a>
     </h1>
   
 
         
-        <a href="/2022/01/24/%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/" class="archive-article-date">
+        <a href="/2022/01/24/2021-2023/%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/" class="archive-article-date">
   	<time datetime="2022-01-24T12:34:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-24</time>
 </a>
         
@@ -563,7 +730,7 @@
         <blockquote>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/cJIgBZVUl8qBpa1-hHc4Cg">干净又卫生啊兄弟们</a>
         
-          <a class="article-more-a" href="/2022/01/24/%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/#more">more >></a>
+          <a class="article-more-a" href="/2022/01/24/2021-2023/%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/#more">more >></a>
         
       
 
@@ -591,7 +758,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/24/%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/01/24/2021-2023/%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/">展开全文 >></a>
         </p>
       
 
@@ -621,19 +788,19 @@
 
 
   
-    <article id="post-前端基础知识汇集-Ver1-0" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2021-2023/前端基础知识汇集-Ver1-0" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/24/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E9%9B%86-Ver1-0/">前端基础知识汇集 Ver1.0</a>
+      <a class="article-title" href="/2022/01/24/2021-2023/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E9%9B%86-Ver1-0/">前端基础知识汇集 Ver1.0</a>
     </h1>
   
 
         
-        <a href="/2022/01/24/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E9%9B%86-Ver1-0/" class="archive-article-date">
+        <a href="/2022/01/24/2021-2023/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E9%9B%86-Ver1-0/" class="archive-article-date">
   	<time datetime="2022-01-24T12:24:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-24</time>
 </a>
         
@@ -643,7 +810,7 @@
       
         <h1 id="HTML5-CSS3-理论案例"><a href="#HTML5-CSS3-理论案例" class="headerlink" title="HTML5 + CSS3 理论案例"></a>HTML5 + CSS3 理论案例
         
-          <a class="article-more-a" href="/2022/01/24/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E9%9B%86-Ver1-0/#more">more >></a>
+          <a class="article-more-a" href="/2022/01/24/2021-2023/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E9%9B%86-Ver1-0/#more">more >></a>
         
       
 
@@ -683,7 +850,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/24/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E9%9B%86-Ver1-0/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/01/24/2021-2023/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%B1%87%E9%9B%86-Ver1-0/">展开全文 >></a>
         </p>
       
 
@@ -713,19 +880,19 @@
 
 
   
-    <article id="post-基本排序、查找算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2021-2023/基本排序、查找算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/24/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E3%80%81%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/">基本排序、查找算法</a>
+      <a class="article-title" href="/2022/01/24/2021-2023/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E3%80%81%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/">基本排序、查找算法</a>
     </h1>
   
 
         
-        <a href="/2022/01/24/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E3%80%81%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/" class="archive-article-date">
+        <a href="/2022/01/24/2021-2023/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E3%80%81%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/" class="archive-article-date">
   	<time datetime="2022-01-24T12:19:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-24</time>
 </a>
         
@@ -735,7 +902,7 @@
       
         <h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法
         
-          <a class="article-more-a" href="/2022/01/24/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E3%80%81%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/#more">more >></a>
+          <a class="article-more-a" href="/2022/01/24/2021-2023/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E3%80%81%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/#more">more >></a>
         
       
 
@@ -763,7 +930,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/24/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E3%80%81%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/01/24/2021-2023/%E5%9F%BA%E6%9C%AC%E6%8E%92%E5%BA%8F%E3%80%81%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/">展开全文 >></a>
         </p>
       
 
@@ -793,19 +960,19 @@
 
 
   
-    <article id="post-通过pd在mac上使用kali中输入法的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-2021-2023/通过pd在mac上使用kali中输入法的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/29/%E9%80%9A%E8%BF%87pd%E5%9C%A8mac%E4%B8%8A%E4%BD%BF%E7%94%A8kali%E4%B8%AD%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/">通过pd在mac上使用Kali中输入法的问题</a>
+      <a class="article-title" href="/2021/11/29/2021-2023/%E9%80%9A%E8%BF%87pd%E5%9C%A8mac%E4%B8%8A%E4%BD%BF%E7%94%A8kali%E4%B8%AD%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/">通过pd在mac上使用Kali中输入法的问题</a>
     </h1>
   
 
         
-        <a href="/2021/11/29/%E9%80%9A%E8%BF%87pd%E5%9C%A8mac%E4%B8%8A%E4%BD%BF%E7%94%A8kali%E4%B8%AD%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
+        <a href="/2021/11/29/2021-2023/%E9%80%9A%E8%BF%87pd%E5%9C%A8mac%E4%B8%8A%E4%BD%BF%E7%94%A8kali%E4%B8%AD%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
   	<time datetime="2021-11-29T05:06:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-29</time>
 </a>
         
@@ -816,7 +983,7 @@
         <ul>
 <li>工作原因需要使用 Kali 来做安全的工作，于是今天在 Mac 上安装了 Kali 的虚拟机。
         
-          <a class="article-more-a" href="/2021/11/29/%E9%80%9A%E8%BF%87pd%E5%9C%A8mac%E4%B8%8A%E4%BD%BF%E7%94%A8kali%E4%B8%AD%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/#more">more >></a>
+          <a class="article-more-a" href="/2021/11/29/2021-2023/%E9%80%9A%E8%BF%87pd%E5%9C%A8mac%E4%B8%8A%E4%BD%BF%E7%94%A8kali%E4%B8%AD%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/#more">more >></a>
         
       
 
@@ -855,84 +1022,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/29/%E9%80%9A%E8%BF%87pd%E5%9C%A8mac%E4%B8%8A%E4%BD%BF%E7%94%A8kali%E4%B8%AD%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-申请公租房过程记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/21/%E7%94%B3%E8%AF%B7%E5%85%AC%E7%A7%9F%E6%88%BF%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/">申请公租房过程记录</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/21/%E7%94%B3%E8%AF%B7%E5%85%AC%E7%A7%9F%E6%88%BF%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2021-10-21T01:09:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>在上海浦东新区公租房网上服务平台填写申请（<a target="_blank" rel="noopener" href="https://select.pdgzf.com/myCenter/UserApplyForSc">上海浦东新区公租房网上业务平台 (pdgzf.com)</a>）。
-        
-          <a class="article-more-a" href="/2021/10/21/%E7%94%B3%E8%AF%B7%E5%85%AC%E7%A7%9F%E6%88%BF%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">租房</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/21/%E7%94%B3%E8%AF%B7%E5%85%AC%E7%A7%9F%E6%88%BF%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/11/29/2021-2023/%E9%80%9A%E8%BF%87pd%E5%9C%A8mac%E4%B8%8A%E4%BD%BF%E7%94%A8kali%E4%B8%AD%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/">展开全文 >></a>
         </p>
       
 
@@ -976,7 +1066,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2023 Jeffrey Hu
+    		&copy; 2024 Jeffrey Hu
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1059,11 +1149,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常问题</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">日常问题</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1183,11 +1273,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">经验</a>
+                <a href="javascript:void(0)" class="js-tag color5">安全渗透</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全渗透</a>
+                <a href="javascript:void(0)" class="js-tag color3">经验</a>
               </li>
              
               <li class="article-tag-list-item">
